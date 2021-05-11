@@ -2,7 +2,8 @@ import {ActionType} from "./action";
 
 
 const initialState = {
-  operations: []
+  operations: [],
+  currency: ``
 };
 
 const reducer = (state = initialState, action) => {
@@ -12,15 +13,19 @@ const reducer = (state = initialState, action) => {
         ...state,
         operations: [...state.operations, action.payload]
       };
-
     case ActionType.DELETE_OPERATIONS:
       return {
         ...state,
         operations: []
       };
+    case ActionType.SET_CURRENCY:
+      return {
+        ...state,
+        currency: action.payload
+      }
+    default:
+      return state
   }
-
-  return state;
 };
 
 

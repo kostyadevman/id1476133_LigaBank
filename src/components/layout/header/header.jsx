@@ -1,4 +1,5 @@
 import React from 'react';
+import {Link} from "react-router-dom";
 
 const Header = () => {
   return (
@@ -24,7 +25,7 @@ const Header = () => {
         <nav className="header__menu menu">
           <ul className="menu__list">
             <li className="menu__item">
-              <a href="" className="menu__link">Услуги</a>
+              <Link href="" className="menu__link">Услуги</Link>
             </li>
             <li className="menu__item">
               <a href="" className="menu__link">Рассчитать кредит</a>

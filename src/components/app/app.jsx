@@ -8,7 +8,7 @@ import {AppRoute} from "../../const";
 const App = () => {
   return (
     <React.Fragment>
-      <Header />
+      {/*<Header />*/}
       <Switch>
         <Route exact path={AppRoute.ROOT}>
           <Main />
@@ -17,7 +17,7 @@ const App = () => {
           <h1>Page not Found</h1>
         </Route>
       </Switch>
-      <Footer />
+      {/*<Footer />*/}
     </React.Fragment>
   );
 };

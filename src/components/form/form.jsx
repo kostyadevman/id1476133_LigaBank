@@ -1,10 +1,10 @@
-import React, {useEffect, useState} from 'react';
-import {useDispatch, useSelector} from "react-redux";
-import Flatpickr from "react-flatpickr";
-import "flatpickr/dist/themes/material_blue.css";
-import {ActionCreator} from "../../store/action";
-import {convertDirection, DAYS_AGO} from "../../const";
-import {convert} from "../../store/api-actions";
+import React, {useEffect} from 'react';
+import {useDispatch, useSelector} from 'react-redux';
+import Flatpickr from 'react-flatpickr';
+import 'flatpickr/dist/themes/material_blue.css';
+import {ActionCreator} from '../../store/action';
+import {convertDirection, currencyCodes, DAYS_AGO} from '../../const';
+import {convert} from '../../store/api-actions';
 
 
 const flatpickrOptions = {
@@ -57,9 +57,6 @@ const Form = () => {
     dispatch(ActionCreator.addOperation())
   }
 
-
-
-
   return (
     <form className="converter__form form">
       <div className="form__wrapper">
@@ -79,13 +76,12 @@ const Form = () => {
               className="form__select"
               name="fromCurrency"
               id="have-currency"
+              value={fromCurrencyCode}
               onChange={_handleFromCodeChange}
           >
-            <option value="RUB">RUB</option>
-            <option value="USD">USD</option>
-            <option value="EUR">EUR</option>
-            <option value="GBR">GBR</option>
-            <option value="CNY">CNY</option>
+          {currencyCodes.map((code, id) =>
+            <option value={code} key={id}>{code}</option>
+          )}
           </select>
         </div>
       </div>
@@ -106,13 +102,12 @@ const Form = () => {
               className="form__select"
               name="toCurrency"
               id="want-currency"
+              value={toCurrencyCode}
               onChange={_handleToCodeChange}
           >
-            <option value="RUB">RUB</option>
-            <option value="USD" selected>USD</option>
-            <option value="EUR">EUR</option>
-            <option value="GBR">GBR</option>
-            <option value="CNY">CNY</option>
+          {currencyCodes.map((code, id) =>
+            <option value={code} key={id}>{code}</option>
+          )}
           </select>
         </div>
       </div>

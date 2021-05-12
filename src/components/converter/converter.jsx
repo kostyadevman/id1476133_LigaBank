@@ -1,6 +1,6 @@
 import React from 'react';
-import Form from "../form/form";
-import History from "../history/history";
+import Form from '../form/form';
+import History from '../history/history';
 
 const Converter = () => {
   return (

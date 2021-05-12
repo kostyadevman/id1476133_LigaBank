@@ -1,8 +1,8 @@
 import React from 'react';
-import {useDispatch, useSelector} from "react-redux";
-import {getVisibleOperations} from "../../store/selectors";
-import {formatDate} from "../../utils";
-import {ActionCreator} from "../../store/action";
+import {useDispatch, useSelector} from 'react-redux';
+import {getVisibleOperations} from '../../store/selectors';
+import {formatDate} from '../../utils';
+import {ActionCreator} from '../../store/action';
 
 const History = () => {
   const dispatch = useDispatch();

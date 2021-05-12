@@ -1,9 +1,10 @@
-import React from "react";
-import {Route, Switch} from "react-router-dom";
-import Header from "../layout/header/header";
-import Footer from "../layout/footer/footer";
-import Main from "../main/main";
-import {AppRoute} from "../../const";
+import React from 'react';
+import {Route, Switch} from 'react-router-dom';
+import Header from '../layout/header/header';
+import Footer from '../layout/footer/footer';
+import Main from '../main/main';
+import {AppRoute} from '../../const';
+import PageNotFound from '../page-not-found/page-not-found';
 
 const App = () => {
   return (
@@ -14,7 +15,7 @@ const App = () => {
           <Main />
         </Route>
         <Route>
-          <h1>Page not Found</h1>
+          <PageNotFound />
         </Route>
       </Switch>
       <Footer />

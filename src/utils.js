@@ -1,17 +1,9 @@
-import {CurrencyType} from "./const";
+import dayjs from 'dayjs';
 
 export const formatDate = (date) => {
-    return `${date.getFullYear()}-${date.getMonth()+1}-${date.getDate()}`
+  return dayjs(date).format(`DD.MM.YYYY`).toString()
 }
 
-export const formatDateToHistory = (date) => {
-    return `${date.getDate()}.${date.getMonth()+1}.${date.getFullYear()}`
-}
-
-export const EMPTY_OPERATION = {
-    fromRate: ``,
-    fromCurrency: CurrencyType.RUB,
-    toRate: ``,
-    toCurrency: CurrencyType.USD,
-    date: new Date()
+export const prettify = (out) => {
+  return Math.round( ( out + Number.EPSILON ) * 10000 ) / 10000
 }

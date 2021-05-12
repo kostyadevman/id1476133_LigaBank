@@ -1,4 +1,5 @@
 export const API_KEY=`e7ab5b4cf26346d8f5ea`
+
 export const AppRoute = {
   ROOT: `/`,
   PAGE_NOT_FOUND: `/page-not-found`
@@ -14,4 +15,9 @@ export const CurrencyType = {
   EUR: `EUR`,
   GBR: `GBP`,
   CNY: `CNY`
+}
+
+export const convertDirection = {
+  FROM_TO: 'FROM_TO',
+  TO_FROM: 'TO_FROM'
 }

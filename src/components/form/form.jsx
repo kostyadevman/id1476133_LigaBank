@@ -1,11 +1,11 @@
 import React, {useEffect, useState} from 'react';
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import Flatpickr from "react-flatpickr";
 import "flatpickr/dist/themes/material_blue.css";
 import {ActionCreator} from "../../store/action";
-import {EMPTY_OPERATION, formatDate} from "../../utils";
-import {DAYS_AGO} from "../../const";
-import {getCurrency} from "../../store/api-actions";
+import {convertDirection, DAYS_AGO} from "../../const";
+import {convert} from "../../store/api-actions";
+
 
 const flatpickrOptions = {
   minDate: new Date().fp_incr(-DAYS_AGO),
@@ -16,53 +16,48 @@ const flatpickrOptions = {
 
 const Form = () => {
   const dispatch = useDispatch();
+  const fromValue = useSelector((state) => state.fromValue);
+  const fromCurrencyCode = useSelector((state) => state.fromCurrencyCode);
+  const toValue = useSelector((state) => state.toValue);
+  const toCurrencyCode = useSelector((state) => state.toCurrencyCode);
+  const date = useSelector((state) => state.date);
 
-  const [operation, setOperation] = useState(EMPTY_OPERATION)
-  dispatch(getCurrency(
-      operation.fromCurrency,
-      operation.toCurrency,
-      formatDate(operation.date)
-  ))
-  // useEffect(() => {
-  //
-  // },[dispatch, operation.date, operation.toCurrency, operation.fromCurrency]);
+  useEffect(() => {
+    dispatch(convert())
+  }, [dispatch, date, fromCurrencyCode, toCurrencyCode])
 
-  // useEffect(() => {
-  //   console.log('change from')
-  //   setOperation({
-  //     ...operation,
-  //     toRate: operation.fromRate*4
-  //   })
-  // }, [dispatch, operation.fromRate])
-  //
-  // useEffect(() => {
-  //   console.log('change to')
-  //   setOperation({
-  //     ...operation,
-  //     fromRate: operation.toRate/4
-  //   })
-  // }, [operation.toRate])
+  const _handleDateChange = (date) => {
+    dispatch(ActionCreator.setDate(date))
+  }
 
+  const _handleFromValueChange = (evt) => {
+    const value = evt.target.value;
+    dispatch(ActionCreator.setFromValue(value))
+    dispatch(convert())
+  }
 
-  const _valueChangeHandler = (evt) => {
-    setOperation({
-      ...operation,
-      [evt.target.name]: evt.target.value
-    })
-  };
+  const _handleFromCodeChange = (evt) => {
+    const code = evt.target.value;
+    dispatch(ActionCreator.setFromCurrencyCode(code))
+  }
+
+  const _handleToValueChange = (evt) => {
+    const value = evt.target.value
+    dispatch(ActionCreator.setToValue(value))
+    dispatch(convert(convertDirection.TO_FROM))
+  }
+
+  const _handleToCodeChange = (evt) => {
+    const code = evt.target.value;
+    dispatch(ActionCreator.setToCurrencyCode(code))
+  }
 
   const _handleSaveClick = (evt) => {
     evt.preventDefault();
-    dispatch(ActionCreator.addOperation(operation))
+    dispatch(ActionCreator.addOperation())
   }
 
-  const _handleDateChange = (date) => {
-    console.log(date)
-    setOperation({
-      ...operation,
-      date: date[0]
-    })
-  }
+
 
 
   return (
@@ -73,19 +68,18 @@ const Form = () => {
           <input
             autoComplete="off"
             className="form__input"
-            value={operation.fromRate}
+            value={fromValue}
             type="number"
-            step='0.01'
             id="have"
             name="fromRate"
-            onChange={_valueChangeHandler}
+            onChange={_handleFromValueChange}
           />
           <label className="visually-hidden" htmlFor="have-currency">У меня есть. Валюта</label>
           <select
               className="form__select"
               name="fromCurrency"
               id="have-currency"
-              onChange={_valueChangeHandler}
+              onChange={_handleFromCodeChange}
           >
             <option value="RUB">RUB</option>
             <option value="USD">USD</option>
@@ -102,18 +96,17 @@ const Form = () => {
               autoComplete="off"
               className="form__input"
               type="number"
-              value={operation.toRate}
-              step='0.01'
+              value={toValue}
               id="want"
               name="toRate"
-              onChange={_valueChangeHandler}
+              onChange={_handleToValueChange}
           />
           <label className="visually-hidden" htmlFor="want-currency">Хочу приобрести. Валюта</label>
           <select
               className="form__select"
               name="toCurrency"
               id="want-currency"
-              onChange={_valueChangeHandler}
+              onChange={_handleToCodeChange}
           >
             <option value="RUB">RUB</option>
             <option value="USD" selected>USD</option>

@@ -15,7 +15,8 @@
   display: flex;
   flex-direction: column;
   flex-wrap: wrap;
-  max-height: 240px;
+  height: 245px;
+  max-height: 245px;
   margin: 0;
   padding: 0;
   list-style: none;
@@ -52,15 +53,6 @@
 
 .history__have-currency {
   margin: 0 6px 0 0;
-}
-
-.history__arrow {
-  display: inline-block;
-  width: 40px;
-  background-image: url("../../img/arrow-right.svg");
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: cover;
 }
 
 .history__want-value {
